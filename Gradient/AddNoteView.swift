@@ -40,6 +40,7 @@ struct AddNoteView: View {
                     .background(Color(red: 0.34, green: 0.68, blue: 0.45))
                     .cornerRadius(8)
             }
+            .padding(.bottom, isFocused ? 16 : 0)
             .buttonStyle(PlainButtonStyle())
         }
         .padding(.horizontal)
