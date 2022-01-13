@@ -56,27 +56,21 @@ struct ContentView: View {
                 VStack {
                     Spacer()
 
-                    HStack {
-                        Spacer()
-
-                        Button {
-                            showingAddSentimentSheet = true
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .foregroundColor(.purple)
-
-                                Image(systemName: "plus")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 28))
-                            }
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .frame(minWidth: 52, maxWidth: 64, minHeight: 52, maxHeight: 64)
-                        .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 16, x: 0, y: 8)
-
-                        Spacer()
+                    Button {
+                        showingAddSentimentSheet = true
+                    } label: {
+                        Text("Log day")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .contentShape(Rectangle())
                     }
+                    .padding()
+                    .buttonStyle(PlainButtonStyle())
+                    .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 60)
+                    .background(.white)
+                    .cornerRadius(8)
+                    .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 16, x: 0, y: 8)
                 }
                 .padding(.horizontal)
             }

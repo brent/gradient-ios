@@ -14,9 +14,7 @@ struct NewEntryView: View {
     @State private var noteContent = ""
 
     var gradientColors: [Color] {
-        let startColor = Color(red: 224/255, green: 175/255, blue: 48/255, opacity: 1)
-        let endColor = Color(red: 64/255, green: 173/255, blue: 126/255, opacity: 1)
-        return GradientGenerator().generate(startColor: startColor, endColor: endColor, steps: 100)
+        return GradientGenerator().generate(steps: 100)
     }
 
     var bgColor: Color {
@@ -81,7 +79,7 @@ struct NewEntryView: View {
                             .padding(20)
                             .frame(maxWidth: .infinity)
                             .foregroundColor(.white)
-                            .background(Color(red: 0.34, green: 0.68, blue: 0.45))
+                            .background(bgColor)
                             .cornerRadius(8)
                     }
                     .buttonStyle(PlainButtonStyle())

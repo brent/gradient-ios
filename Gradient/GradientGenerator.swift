@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct GradientGenerator {
-    struct ColorComponents {
+    private struct ColorComponents {
         let red: Double
         let green: Double
         let blue: Double
@@ -35,12 +35,22 @@ struct GradientGenerator {
         }
     }
 
-    let startColor = Color(red: 0.878, green: 0.686, blue: 0.188)
-    let endColor = Color(red: 0.251, green: 0.678, blue: 0.494)
+    let startColor: Color
+    let endColor: Color
 
-    func generate(startColor: Color, endColor: Color, steps: Int) -> [Color] {
-        let startColorComponents = ColorComponents(from: startColor)
-        let endColorComponents = ColorComponents(from: endColor)
+    init(startColor: Color, endColor: Color) {
+        self.startColor = startColor
+        self.endColor = endColor
+    }
+
+    init() {
+        self.startColor = Color(red: 224/255, green: 175/255, blue: 48/255, opacity: 1)
+        self.endColor = Color(red: 64/255, green: 173/255, blue: 126/255, opacity: 1)
+    }
+
+    func generate(steps: Int) -> [Color] {
+        let startColorComponents = ColorComponents(from: self.startColor)
+        let endColorComponents = ColorComponents(from: self.endColor)
 
         let redColorSteps = getColorSteps(startValue: startColorComponents.red, endValue: endColorComponents.red, steps: steps)
         let greenColorSteps = getColorSteps(startValue: startColorComponents.green, endValue: endColorComponents.green, steps: steps)
@@ -55,7 +65,7 @@ struct GradientGenerator {
         return gradientColors
     }
 
-    func getColorSteps(startValue: Double, endValue: Double, steps: Int) -> [Double] {
+    private func getColorSteps(startValue: Double, endValue: Double, steps: Int) -> [Double] {
         let stepIncrement = (endValue - startValue) / Double(steps)
         let middleSteps = steps - 2
 
