@@ -58,7 +58,7 @@ struct NewEntryView: View {
                     Button {
                         showingAddNoteView = true
                     } label: {
-                        Text("Add note")
+                        Text(noteContent == "" ? "Add note" : "Edit note")
                             .font(.system(size: 20))
                             .fontWeight(.bold)
                             .padding(20)
