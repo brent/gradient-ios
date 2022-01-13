@@ -93,9 +93,13 @@ struct SentimentBlockContentCondensed: View, SentimentBlockContent {
                     .font(.system(.subheadline))
                     .foregroundColor(.secondary)
                     .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
 
                 Text(dayOfWeek)
                     .font(.system(.title3))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
