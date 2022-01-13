@@ -84,7 +84,11 @@ struct MonthBlockView: View {
                     if day == nil {
                         Text("")
                     } else {
-                        SentimentBlockContentMini(date: day!)
+                        NavigationLink {
+                            SentimentDetailView(date: day!)
+                        } label: {
+                            SentimentBlockContentMini(date: day!)
+                        }
                     }
                 }
             }
