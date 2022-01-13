@@ -10,8 +10,10 @@
 		8424E184278B5EC5007639D7 /* MonthBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E183278B5EC5007639D7 /* MonthBlockView.swift */; };
 		8424E189278BDF2F007639D7 /* BlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E188278BDF2F007639D7 /* BlockTitle.swift */; };
 		8424E18B278BE4E0007639D7 /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E18A278BE4E0007639D7 /* AddNoteView.swift */; };
+		8424E192278D0DDD007639D7 /* Gradient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8424E190278D0DDD007639D7 /* Gradient.xcdatamodeld */; };
+		8424E194278D173C007639D7 /* GradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E193278D173C007639D7 /* GradientGenerator.swift */; };
 		847545DE277D6AAB00D6A8D8 /* SentimentBlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */; };
-		847545E0277E535F00D6A8D8 /* LogSentimentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DF277E535F00D6A8D8 /* LogSentimentView.swift */; };
+		847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DF277E535F00D6A8D8 /* NewEntryView.swift */; };
 		847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545E1277E759600D6A8D8 /* SentimentDetailView.swift */; };
 		84CEF1EA277D5A3B00C2CB6C /* GradientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CEF1E9277D5A3B00C2CB6C /* GradientApp.swift */; };
 		84CEF1EC277D5A3B00C2CB6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CEF1EB277D5A3B00C2CB6C /* ContentView.swift */; };
@@ -23,8 +25,10 @@
 		8424E183278B5EC5007639D7 /* MonthBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthBlockView.swift; sourceTree = "<group>"; };
 		8424E188278BDF2F007639D7 /* BlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTitle.swift; sourceTree = "<group>"; };
 		8424E18A278BE4E0007639D7 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
+		8424E191278D0DDD007639D7 /* Gradient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gradient.xcdatamodel; sourceTree = "<group>"; };
+		8424E193278D173C007639D7 /* GradientGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientGenerator.swift; sourceTree = "<group>"; };
 		847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentBlockContent.swift; sourceTree = "<group>"; };
-		847545DF277E535F00D6A8D8 /* LogSentimentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogSentimentView.swift; path = Gradient/LogSentimentView.swift; sourceTree = SOURCE_ROOT; };
+		847545DF277E535F00D6A8D8 /* NewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewEntryView.swift; path = Gradient/NewEntryView.swift; sourceTree = SOURCE_ROOT; };
 		847545E1277E759600D6A8D8 /* SentimentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentDetailView.swift; sourceTree = "<group>"; };
 		84CEF1E6277D5A3B00C2CB6C /* Gradient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gradient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CEF1E9277D5A3B00C2CB6C /* GradientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientApp.swift; sourceTree = "<group>"; };
@@ -63,7 +67,8 @@
 		84CEF1E8277D5A3B00C2CB6C /* Gradient */ = {
 			isa = PBXGroup;
 			children = (
-				847545DF277E535F00D6A8D8 /* LogSentimentView.swift */,
+				847545DF277E535F00D6A8D8 /* NewEntryView.swift */,
+				8424E193278D173C007639D7 /* GradientGenerator.swift */,
 				847545E1277E759600D6A8D8 /* SentimentDetailView.swift */,
 				84CEF1E9277D5A3B00C2CB6C /* GradientApp.swift */,
 				84CEF1EB277D5A3B00C2CB6C /* ContentView.swift */,
@@ -71,6 +76,7 @@
 				8424E183278B5EC5007639D7 /* MonthBlockView.swift */,
 				8424E18A278BE4E0007639D7 /* AddNoteView.swift */,
 				847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */,
+				8424E190278D0DDD007639D7 /* Gradient.xcdatamodeld */,
 				84CEF1ED277D5A3E00C2CB6C /* Assets.xcassets */,
 				84CEF1EF277D5A3E00C2CB6C /* Preview Content */,
 			);
@@ -160,7 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				84CEF1EC277D5A3B00C2CB6C /* ContentView.swift in Sources */,
-				847545E0277E535F00D6A8D8 /* LogSentimentView.swift in Sources */,
+				8424E194278D173C007639D7 /* GradientGenerator.swift in Sources */,
+				8424E192278D0DDD007639D7 /* Gradient.xcdatamodeld in Sources */,
+				847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */,
 				847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */,
 				84CEF1EA277D5A3B00C2CB6C /* GradientApp.swift in Sources */,
 				8424E189278BDF2F007639D7 /* BlockTitle.swift in Sources */,
@@ -369,6 +377,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8424E190278D0DDD007639D7 /* Gradient.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8424E191278D0DDD007639D7 /* Gradient.xcdatamodel */,
+			);
+			currentVersion = 8424E191278D0DDD007639D7 /* Gradient.xcdatamodel */;
+			path = Gradient.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 84CEF1DE277D5A3B00C2CB6C /* Project object */;
 }

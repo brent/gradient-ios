@@ -1,5 +1,5 @@
 //
-//  LogSentimentView.swift
+//  NewEntryView.swift
 //  Gradient
 //
 //  Created by Brent Meyer on 12/30/21.
@@ -7,11 +7,21 @@
 
 import SwiftUI
 
-struct LogSentimentView: View {
+struct NewEntryView: View {
     @Environment(\.dismiss) var dismiss
     @State private var sentiment: Double = 50
     @State private var showingAddNoteView = false
     @State private var noteContent = ""
+
+    var gradientColors: [Color] {
+        let startColor = Color(red: 224/255, green: 175/255, blue: 48/255, opacity: 1)
+        let endColor = Color(red: 64/255, green: 173/255, blue: 126/255, opacity: 1)
+        return GradientGenerator().generate(startColor: startColor, endColor: endColor, steps: 100)
+    }
+
+    var bgColor: Color {
+        gradientColors[Int(sentiment)]
+    }
 
     var body: some View {
         VStack {
@@ -39,7 +49,7 @@ struct LogSentimentView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .background(Color(red: 0.34, green: 0.68, blue: 0.45))
+            .background(bgColor)
             .foregroundColor(.white)
 
             VStack {
@@ -89,6 +99,6 @@ struct LogSentimentView: View {
 
 struct LogSentimentView_Previews: PreviewProvider {
     static var previews: some View {
-        LogSentimentView()
+        NewEntryView()
     }
 }
