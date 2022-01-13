@@ -62,6 +62,7 @@ struct ContentView: View {
                         Text("Log day")
                             .font(.system(size: 20))
                             .fontWeight(.bold)
+                            .foregroundColor(.black)
                             .frame(maxWidth: .infinity)
                             .contentShape(Rectangle())
                     }
