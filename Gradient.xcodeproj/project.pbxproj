@@ -13,6 +13,10 @@
 		8424E192278D0DDD007639D7 /* Gradient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8424E190278D0DDD007639D7 /* Gradient.xcdatamodeld */; };
 		8424E194278D173C007639D7 /* GradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E193278D173C007639D7 /* GradientGenerator.swift */; };
 		843040282795FEFB008B901D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843040272795FEFA008B901D /* DataController.swift */; };
+		8430402D27960019008B901D /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402927960019008B901D /* Entry+CoreDataClass.swift */; };
+		8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402A27960019008B901D /* Entry+CoreDataProperties.swift */; };
+		8430402F27960019008B901D /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402B27960019008B901D /* Note+CoreDataClass.swift */; };
+		8430403027960019008B901D /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402C27960019008B901D /* Note+CoreDataProperties.swift */; };
 		847545DE277D6AAB00D6A8D8 /* SentimentBlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */; };
 		847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DF277E535F00D6A8D8 /* NewEntryView.swift */; };
 		847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545E1277E759600D6A8D8 /* SentimentDetailView.swift */; };
@@ -29,6 +33,10 @@
 		8424E191278D0DDD007639D7 /* Gradient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gradient.xcdatamodel; sourceTree = "<group>"; };
 		8424E193278D173C007639D7 /* GradientGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientGenerator.swift; sourceTree = "<group>"; };
 		843040272795FEFA008B901D /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		8430402927960019008B901D /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8430402A27960019008B901D /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8430402B27960019008B901D /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8430402C27960019008B901D /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentBlockContent.swift; sourceTree = "<group>"; };
 		847545DF277E535F00D6A8D8 /* NewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewEntryView.swift; path = Gradient/NewEntryView.swift; sourceTree = SOURCE_ROOT; };
 		847545E1277E759600D6A8D8 /* SentimentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentDetailView.swift; sourceTree = "<group>"; };
@@ -69,6 +77,10 @@
 		84CEF1E8277D5A3B00C2CB6C /* Gradient */ = {
 			isa = PBXGroup;
 			children = (
+				8430402927960019008B901D /* Entry+CoreDataClass.swift */,
+				8430402A27960019008B901D /* Entry+CoreDataProperties.swift */,
+				8430402B27960019008B901D /* Note+CoreDataClass.swift */,
+				8430402C27960019008B901D /* Note+CoreDataProperties.swift */,
 				843040272795FEFA008B901D /* DataController.swift */,
 				847545DF277E535F00D6A8D8 /* NewEntryView.swift */,
 				8424E193278D173C007639D7 /* GradientGenerator.swift */,
@@ -169,16 +181,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				84CEF1EC277D5A3B00C2CB6C /* ContentView.swift in Sources */,
+				8430402F27960019008B901D /* Note+CoreDataClass.swift in Sources */,
 				8424E194278D173C007639D7 /* GradientGenerator.swift in Sources */,
 				8424E192278D0DDD007639D7 /* Gradient.xcdatamodeld in Sources */,
 				847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */,
 				847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */,
+				8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */,
 				843040282795FEFB008B901D /* DataController.swift in Sources */,
 				84CEF1EA277D5A3B00C2CB6C /* GradientApp.swift in Sources */,
 				8424E189278BDF2F007639D7 /* BlockTitle.swift in Sources */,
 				847545DE277D6AAB00D6A8D8 /* SentimentBlockContent.swift in Sources */,
 				8424E18B278BE4E0007639D7 /* AddNoteView.swift in Sources */,
+				8430402D27960019008B901D /* Entry+CoreDataClass.swift in Sources */,
 				8424E184278B5EC5007639D7 /* MonthBlockView.swift in Sources */,
+				8430403027960019008B901D /* Note+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

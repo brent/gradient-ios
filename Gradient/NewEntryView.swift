@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct NewEntryView: View {
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     @State private var sentiment: Double = 50
     @State private var showingAddNoteView = false
     @State private var noteContent = ""
 
     var gradientColors: [Color] {
-        return GradientGenerator().generate(steps: 100)
+        GradientGenerator().generate(steps: 100)
     }
 
-    var bgColor: Color {
+    var sentimentColor: Color {
         gradientColors[Int(sentiment)]
     }
 
@@ -47,7 +48,7 @@ struct NewEntryView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .background(bgColor)
+            .background(sentimentColor)
             .foregroundColor(.white)
 
             VStack {
@@ -71,7 +72,8 @@ struct NewEntryView: View {
                     .buttonStyle(PlainButtonStyle())
 
                     Button {
-                        //
+                        save()
+                        dismiss()
                     } label: {
                         Text("Done")
                             .font(.system(size: 20))
@@ -79,7 +81,7 @@ struct NewEntryView: View {
                             .padding(20)
                             .frame(maxWidth: .infinity)
                             .foregroundColor(.white)
-                            .background(bgColor)
+                            .background(sentimentColor)
                             .cornerRadius(8)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -92,6 +94,71 @@ struct NewEntryView: View {
         .sheet(isPresented: $showingAddNoteView) {
             AddNoteView(noteContent: $noteContent)
         }
+    }
+
+    func save() {
+        guard let todaysDate = getDateForToday() else {
+            print("error generating today's date")
+            return
+        }
+
+        let entry = Entry(context: moc)
+        let note = Note(context: moc)
+
+        entry.id = UUID()
+        entry.sentiment = Int64(sentiment.rounded())
+        entry.color = getHexValue(from: sentimentColor)
+        entry.date = todaysDate
+        entry.createdAt = Date.now
+        entry.updatedAt = Date.now
+
+        let trimmedNoteContent = noteContent.trimmingCharacters(in: .whitespaces)
+        if trimmedNoteContent.isEmpty == false {
+            note.id = UUID()
+            note.content = trimmedNoteContent
+            note.createdAt = Date.now
+            note.updatedAt = Date.now
+            note.entry = entry
+
+            entry.note = note
+        }
+
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch {
+                print("Couldn't save CoreData entities")
+            }
+        }
+    }
+
+    func getDateForToday() -> Date? {
+        let calendar = Calendar.current
+        let todayDateComponents = calendar.dateComponents([
+            .timeZone,
+            .year,
+            .month,
+            .day,
+            .weekday
+        ], from: Date.now)
+
+        let dateComponentsToSave = DateComponents(
+            timeZone: todayDateComponents.timeZone,
+            year: todayDateComponents.year,
+            month: todayDateComponents.month,
+            day: todayDateComponents.day,
+            weekday: todayDateComponents.weekday
+        )
+
+        return calendar.date(from: dateComponentsToSave)
+    }
+
+    func getHexValue(from color: Color) -> String {
+        let colorDesc = color.description
+        let startIndex = colorDesc.index(colorDesc.startIndex, offsetBy: 1)
+        let endIndex = colorDesc.index(colorDesc.endIndex, offsetBy: -3)
+
+        return String(colorDesc[startIndex...endIndex])
     }
 }
 

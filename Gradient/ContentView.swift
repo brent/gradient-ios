@@ -8,12 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors:[SortDescriptor(\.date, order: .reverse)]) var entries: FetchedResults<Entry>
+
     @State private var showingAddSentimentSheet = false
 
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
+                    ForEach(entries) { entry in
+                        VStack {
+                            Text("Date: \(entry.date!.formatted())")
+                            Text("Sentiment: \(String(entry.sentiment))")
+                            Text("Color: \(entry.color!)")
+                            Text("Note: \(entry.note?.content ?? "No note")")
+                        }
+                    }
+
                     VStack(alignment: .center) {
                         BlockTitle(label: "This week")
 
