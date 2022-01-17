@@ -51,7 +51,7 @@ struct NewEntryView: View {
             .foregroundColor(.white)
 
             VStack {
-                Slider(value: $sentiment, in: 0...99)
+                Slider(value: $sentiment, in: 0...99, step: 1)
                     .padding(.bottom)
 
                 VStack {
