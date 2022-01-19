@@ -13,27 +13,102 @@ struct ContentView: View {
 
     @State private var showingAddSentimentSheet = false
 
+    var entriesByMonth: [[Entry]] {
+        guard !entries.isEmpty else { return [] }
+
+        var allEntries = [[Entry]]()
+        var monthEntries = [Entry]()
+        var currentMonth = Calendar.current.dateComponents([.month], from: entries[0].wrappedDate).month
+
+        entries.forEach { entry in
+            let currentEntryMonth = Calendar.current.dateComponents([.month], from: entry.wrappedDate).month
+
+            if currentEntryMonth == currentMonth {
+                monthEntries.append(entry)
+            } else {
+                allEntries.append(monthEntries)
+                monthEntries = []
+                currentMonth = currentEntryMonth
+                monthEntries.append(entry)
+            }
+        }
+
+        if monthEntries.count > 0 { allEntries.append(monthEntries) }
+        return allEntries
+    }
+
+    var entriesPreviousMonths: [[Entry]] {
+        guard !entriesByMonth.isEmpty else { return [] }
+
+        let mostRecentEntry = entriesByMonth[0][0]
+        let mostRecentEntryMonth = Calendar.current.dateComponents([.month], from: mostRecentEntry.wrappedDate).month
+        let currentMonth = Calendar.current.dateComponents([.month], from: Date.now).month
+
+        if mostRecentEntryMonth == currentMonth {
+            return Array(entriesByMonth[1..<entriesByMonth.count])
+        } else {
+            return entriesByMonth
+        }
+    }
+
+    var entriesThisMonth: [Entry] {
+        guard !entriesByMonth.isEmpty else { return [] }
+
+        let mostRecentMonthEntries = entriesByMonth[0]
+        let mostRecentEntry = mostRecentMonthEntries[0]
+        let mostRecentEntryMonth = Calendar.current.dateComponents([.month], from: mostRecentEntry.wrappedDate).month
+        let currentMonth = Calendar.current.dateComponents([.month], from: Date.now).month
+
+        if mostRecentEntryMonth == currentMonth {
+            return mostRecentMonthEntries
+        } else {
+            return []
+        }
+    }
+
+    var entriesEarlierThisMonth: [Entry] {
+        var entriesBeforeThisWeek = [Entry]()
+
+        let thisWeek = Calendar.current.dateComponents([.weekOfYear], from: Date.now).weekOfYear
+
+        entriesThisMonth.forEach { entry in
+            let entryWeekNum = Calendar.current.dateComponents([.weekOfYear], from: entry.wrappedDate).weekOfYear
+
+            if entryWeekNum != thisWeek {
+                entriesBeforeThisWeek.append(entry)
+            }
+        }
+
+        return entriesBeforeThisWeek
+    }
+
+    var entriesThisWeek: [Entry] {
+        let thisWeek = Calendar.current.dateComponents([.weekOfYear], from: Date.now).weekOfYear
+        var thisWeekEntries = [Entry]()
+
+        entriesThisMonth.forEach { entry in
+            let entryWeek = Calendar.current.dateComponents([.weekOfYear], from: entry.wrappedDate).weekOfYear
+
+            if entryWeek == thisWeek {
+                thisWeekEntries.append(entry)
+            }
+        }
+
+        return thisWeekEntries
+    }
+
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
-                    ForEach(entries) { entry in
-                        VStack {
-                            Text("Date: \(entry.date!.formatted())")
-                            Text("Sentiment: \(String(entry.sentiment))")
-                            Text("Color: \(entry.color!)")
-                            Text("Note: \(entry.note?.content ?? "No note")")
-                        }
-                    }
-
                     VStack(alignment: .center) {
                         BlockTitle(label: "This week")
 
-                        ForEach(0..<7, id: \.self) { _ in
+                        ForEach(entriesThisWeek) { entry in
                             NavigationLink {
-                                SentimentDetailView(date: Date())
+                                SentimentDetailView(entry: entry)
                             } label: {
-                                SentimentBlockContentFull(date: Date())
+                                SentimentBlockContentFull(entry: entry)
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -43,11 +118,11 @@ struct ContentView: View {
                     VStack(alignment: .center) {
                         BlockTitle(label: "Earlier this month")
 
-                        ForEach(0..<7, id: \.self) { _ in
+                        ForEach(entriesEarlierThisMonth) { entry in
                             NavigationLink {
-                                SentimentDetailView(date: Date())
+                                SentimentDetailView(entry: entry)
                             } label: {
-                                SentimentBlockContentCondensed(date: Date())
+                                SentimentBlockContentCondensed(entry: entry)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .buttonStyle(PlainButtonStyle())
@@ -58,11 +133,13 @@ struct ContentView: View {
                     Divider()
                         .padding(.vertical)
 
-                    MonthBlockView(date: Date.now)
-                        .padding(.horizontal)
-                        .padding(.bottom, 80)
+                    ForEach(entriesPreviousMonths, id: \.self) { monthEntries in
+                        MonthBlockView(entries: monthEntries)
+                            .padding()
+                    }
                 }
-                .navigationTitle("Gradient")
+                .padding(.bottom, 64)
+                .navigationTitle("Home")
                 .navigationBarHidden(true)
 
                 VStack {

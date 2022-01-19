@@ -8,13 +8,17 @@
 import SwiftUI
 
 protocol SentimentBlockContent {
-    var date: Date { get }
+    var entry: Entry { get }
     var bgColor: Color { get }
 }
 
 extension SentimentBlockContent {
     var bgColor: Color {
-        return Color(red: 0.34, green: 0.68, blue: 0.45)
+        if let uiColor = UIColor(hex: "#\(entry.wrappedColor)FF") {
+            return Color(uiColor: uiColor)
+        }
+
+        return Color.red
     }
 
     func getMonthNameDayNum(from date: Date) -> String {
@@ -43,14 +47,14 @@ extension SentimentBlockContent {
 }
 
 struct SentimentBlockContentFull: View, SentimentBlockContent {
-    let date: Date
+    let entry: Entry
 
     var monthDay: String {
-        getMonthNameDayNum(from: date)
+        getMonthNameDayNum(from: entry.wrappedDate)
     }
 
     var dayOfWeek: String {
-        getDayOfWeekName(from: date)
+        getDayOfWeekName(from: entry.wrappedDate)
     }
 
     var body: some View {
@@ -71,14 +75,14 @@ struct SentimentBlockContentFull: View, SentimentBlockContent {
 }
 
 struct SentimentBlockContentCondensed: View, SentimentBlockContent {
-    let date: Date
+    let entry: Entry
 
     var monthDay: String {
-        getMonthNameDayNum(from: date)
+        getMonthNameDayNum(from: entry.wrappedDate)
     }
 
     var dayOfWeek: String {
-        getDayOfWeekName(from: date)
+        getDayOfWeekName(from: entry.wrappedDate)
     }
 
     var body: some View {
@@ -107,14 +111,15 @@ struct SentimentBlockContentCondensed: View, SentimentBlockContent {
 }
 
 struct SentimentBlockContentMini: View, SentimentBlockContent {
-    let date: Date
+    let entry: Entry
 
     var dayNum: String {
-        getDayOfWeekNum(from: date)
+        getDayOfWeekNum(from: entry.wrappedDate)
     }
 
     var body: some View {
         Text(dayNum)
+            .fontWeight(.bold)
             .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44, maxHeight: .infinity)
             .background(bgColor)
             .foregroundColor(.white)
@@ -124,21 +129,46 @@ struct SentimentBlockContentMini: View, SentimentBlockContent {
 
 struct SentimentBlockContentFull_Previews: PreviewProvider {
     static var previews: some View {
-        let date = Date()
-        SentimentBlockContentFull(date: date)
+        SentimentBlockContentFull(entry: Entry())
     }
 }
 
 struct SentimentBlockContentCondensed_Previews: PreviewProvider {
     static var previews: some View {
-        let date = Date()
-        SentimentBlockContentCondensed(date: date)
+        SentimentBlockContentCondensed(entry: Entry())
     }
 }
 
 struct SentimentBlockContentMini_Previews: PreviewProvider {
     static var previews: some View {
-        let date = Date()
-        SentimentBlockContentMini(date: date)
+        SentimentBlockContentMini(entry: Entry())
+    }
+}
+
+extension UIColor {
+    public convenience init?(hex: String) {
+        let r, g, b, a: CGFloat
+
+        if hex.hasPrefix("#") {
+            let start = hex.index(hex.startIndex, offsetBy: 1)
+            let hexColor = String(hex[start...])
+
+            if hexColor.count == 8 {
+                let scanner = Scanner(string: hexColor)
+                var hexNumber: UInt64 = 0
+
+                if scanner.scanHexInt64(&hexNumber) {
+                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                    a = CGFloat(hexNumber & 0x000000ff) / 255
+
+                    self.init(red: r, green: g, blue: b, alpha: a)
+                    return
+                }
+            }
+        }
+
+        return nil
     }
 }

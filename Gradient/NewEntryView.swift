@@ -103,7 +103,6 @@ struct NewEntryView: View {
         }
 
         let entry = Entry(context: moc)
-        let note = Note(context: moc)
 
         entry.id = UUID()
         entry.sentiment = Int64(sentiment.rounded())
@@ -113,15 +112,52 @@ struct NewEntryView: View {
         entry.updatedAt = Date.now
 
         let trimmedNoteContent = noteContent.trimmingCharacters(in: .whitespaces)
-        if trimmedNoteContent.isEmpty == false {
+        if trimmedNoteContent != "" {
+            let note = Note(context: moc)
+
             note.id = UUID()
             note.content = trimmedNoteContent
             note.createdAt = Date.now
             note.updatedAt = Date.now
-            note.entry = entry
 
+            note.entry = entry
             entry.note = note
         }
+
+        /*
+        var additionalEntries = [Entry]()
+        var additionalNotes = [Note]()
+
+        for index in 1...99 {
+            if Bool.random() {
+                let entry = Entry(context: moc)
+                let randomNum = Int.random(in: 0...99)
+                let date = Calendar.current.date(byAdding: .day, value: -index, to: Date.now)
+
+                entry.id = UUID()
+                entry.sentiment = Int64(randomNum)
+                entry.color = getHexValue(from: gradientColors[randomNum])
+                entry.date = date
+                entry.createdAt = date
+                entry.updatedAt = date
+
+                if Bool.random() {
+                    let note = Note(context: moc)
+
+                    note.id = UUID()
+                    note.content = "Note \(index)"
+                    note.createdAt = date
+                    note.updatedAt = date
+
+                    note.entry = entry
+                    entry.note = note
+
+                    additionalNotes.append(note)
+                }
+                additionalEntries.append(entry)
+            }
+        }
+        */
 
         if moc.hasChanges {
             do {

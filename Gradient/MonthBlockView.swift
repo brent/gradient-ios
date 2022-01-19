@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct MonthBlockView: View {
-    let date: Date
+    var entries: [Entry]
 
-    var daysInMonth: [Date] {
-        getAllDaysInMonth(for: date)
+    init(entries: [Entry]) {
+        self.entries = entries.reversed()
+    }
+
+    var datesInMonth: [Date] {
+        getAllDaysInMonth(for: entries[0].wrappedDate)
     }
 
     var startingDay: Int {
-        getFirstDayOfMonth(for: daysInMonth[0])
+        getFirstDayOfMonth(for: datesInMonth[0])
     }
 
     var monthName: String {
-        getMonthName(for: date)
+        getMonthName(for: entries[0].wrappedDate)
     }
 
     func getMonthName(for date: Date) -> String {
@@ -60,36 +64,103 @@ struct MonthBlockView: View {
 
     struct MonthGrid: View {
         let startingDay: Int
-        let days: [Date]
+        let datesInMonth: [Date]
+        let entries: [Entry]
 
-        var monthDays: [Date?] {
-            var monthWithNilDays = [Date?]()
+        var monthCells: [MonthGridCell] {
+            var monthArray = [MonthGridCell]()
 
             for _ in 1..<startingDay {
-                monthWithNilDays.append(nil)
+                monthArray.append(MonthGridCell())
             }
 
-            for day in days {
-                monthWithNilDays.append(day)
+            for date in datesInMonth {
+                let dateDay = Calendar.current.component(.day, from: date)
+
+                for (entriesIndex, entry) in entries.enumerated() {
+                    let entryDay = Calendar.current.component(.day, from: entry.wrappedDate)
+
+                    if dateDay == entryDay {
+                        monthArray.append(MonthGridCell(entry: entry))
+                        break
+                    }
+
+                    if entriesIndex == entries.count - 1 {
+                        monthArray.append(MonthGridCell(date: date))
+                    }
+                }
             }
 
-            return monthWithNilDays
+            return monthArray
+        }
+
+        struct MonthGridCell: View {
+            let date: Date?
+            let entry: Entry?
+
+            init(entry: Entry) {
+                self.date = nil
+                self.entry = entry
+            }
+
+            init(date: Date) {
+                self.date = date
+                self.entry = nil
+            }
+
+            init() {
+                self.date = nil
+                self.entry = nil
+            }
+
+            var dateNum: String? {
+                if let date = date {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "d"
+                    return formatter.string(from: date)
+                }
+
+                return ""
+            }
+
+            var body: some View {
+                if entry != nil {
+                    NavigationLink {
+                        SentimentDetailView(entry: entry!)
+                    } label: {
+                        SentimentBlockContentMini(entry: entry!)
+                    }
+                } else if date != nil {
+                    Text(dateNum ?? "")
+                        .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44, maxHeight: .infinity)
+                        .background(.gray.opacity(0.15))
+                        .foregroundColor(.primary.opacity(0.33))
+                        .cornerRadius(8)
+                } else {
+                    Text("")
+                }
+            }
         }
 
         let gridLayout: [GridItem] = Array(repeating: .init(.flexible()), count: 7)
 
         var body: some View {
             LazyVGrid(columns: gridLayout) {
-                ForEach(monthDays, id: \.self) { day in
-                    if day == nil {
+                ForEach(0..<monthCells.count) { index in
+                    monthCells[index]
+                    /*
+                    if index < startingDay - 1 {
                         Text("")
-                    } else {
+                    } else if monthEntries[index] != nil {
                         NavigationLink {
-                            SentimentDetailView(date: day!)
+                            SentimentDetailView(entry: monthEntries[index] ?? Entry())
                         } label: {
-                            SentimentBlockContentMini(date: day!)
+                            SentimentBlockContentMini(entry: monthEntries[index] ?? Entry())
                         }
+                    } else {
+                        Text("\(index)")
                     }
+                    */
                 }
             }
         }
@@ -113,13 +184,13 @@ struct MonthBlockView: View {
         VStack {
             BlockTitle(label: monthName)
             WeekdayHeadings()
-            MonthGrid(startingDay: startingDay, days: daysInMonth)
+            MonthGrid(startingDay: startingDay, datesInMonth: datesInMonth, entries: entries)
         }
     }
 }
 
 struct MonthBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        MonthBlockView(date: Date.now)
+        MonthBlockView(entries: [Entry()])
     }
 }
