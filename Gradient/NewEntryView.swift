@@ -52,7 +52,7 @@ struct NewEntryView: View {
             .foregroundColor(.white)
 
             VStack {
-                Slider(value: $sentiment, in: 0...99, step: 1)
+                Slider(value: $sentiment, in: 1...100, step: 1)
                     .padding(.bottom)
 
                 VStack {
@@ -128,10 +128,10 @@ struct NewEntryView: View {
         var additionalEntries = [Entry]()
         var additionalNotes = [Note]()
 
-        for index in 1...99 {
+        for index in 1...100 {
             if Bool.random() {
                 let entry = Entry(context: moc)
-                let randomNum = Int.random(in: 0...99)
+                let randomNum = Int.random(in: 1...100)
                 let date = Calendar.current.date(byAdding: .day, value: -index, to: Date.now)
 
                 entry.id = UUID()
@@ -157,7 +157,7 @@ struct NewEntryView: View {
                 additionalEntries.append(entry)
             }
         }
-        */
+         */
 
         if moc.hasChanges {
             do {
