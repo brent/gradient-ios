@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SentimentDetailView: View, SentimentBlockContent {
     @Environment(\.dismiss) var dismiss
+    @FetchRequest(sortDescriptors:[SortDescriptor(\.date, order: .reverse)]) var allEntries: FetchedResults<Entry>
 
     let entry: Entry
 
@@ -25,6 +26,79 @@ struct SentimentDetailView: View, SentimentBlockContent {
             return content
         }
         return ""
+    }
+
+    var entriesThisMonth: [Entry] {
+        let thisMonth = Calendar.current.component(.month, from: entry.wrappedDate)
+
+        var entries = [Entry]()
+
+        allEntries.forEach { entry in
+            let entryMonth = Calendar.current.component(.month, from: entry.wrappedDate)
+
+            if entryMonth == thisMonth {
+                entries.append(entry)
+            }
+        }
+
+        return entries
+    }
+
+    var entriesThisYear: [Entry] {
+        let thisYear = Calendar.current.component(.year, from: entry.wrappedDate)
+
+        var entries = [Entry]()
+
+        allEntries.forEach { entry in
+            let entryYear = Calendar.current.component(.year, from: entry.wrappedDate)
+
+            if entryYear == thisYear {
+                entries.append(entry)
+            }
+        }
+
+        return entries
+    }
+
+    struct HistogramChart: View {
+        let values: [Int]
+        let entry: Entry
+        let label: String
+
+        var chartHelper: HistogramChartHelper {
+            HistogramChartHelper(values: self.values)
+        }
+
+        var body: some View {
+            GeometryReader { geometry in
+                VStack {
+                    HStack(alignment: .bottom, spacing: 8) {
+                        ForEach(chartHelper.data) { datum in
+                            let width = (geometry.frame(in: .local).width / CGFloat(chartHelper.data.count)) - 8
+                            //let height = (geometry.size.height * CGFloat(datum.rawValues.count) / 100)
+                            //let height = ((CGFloat(datum.rawValues.count)) * (geometry.frame(in: .global).height * 0.05))
+                            let height = (geometry.frame(in: .local).height * 0.05) * CGFloat(datum.rawValues.count)
+
+                            if (entry.wrappedSentiment >= datum.min) && (entry.wrappedSentiment <= datum.max) {
+                                Rectangle()
+                                    .fill(.white)
+                                    .cornerRadius(4)
+                                    .frame(width: width, height: height)
+                            } else {
+                                Rectangle()
+                                    .fill(.black.opacity(0.25))
+                                    .cornerRadius(4)
+                                    .frame(width: width, height: height)
+                            }
+                        }
+                    }
+
+                    Text(label)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                }
+            }
+        }
     }
 
     var body: some View {
@@ -44,6 +118,12 @@ struct SentimentDetailView: View, SentimentBlockContent {
                 Text("#\(entry.wrappedColor)")
                     .foregroundColor(.white)
                     .font(.system(size: 24))
+
+                HistogramChart(
+                    values: allEntries.map { $0.wrappedSentiment },
+                    entry: entry,
+                    label: "Today vs all time"
+                )
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)

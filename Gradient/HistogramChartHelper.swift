@@ -8,11 +8,20 @@
 import Foundation
 
 struct HistogramChartHelper {
-    let minValue = 1
-    let maxValue = 100
-    let bucketSize = 5
+    let minValue: Int
+    let maxValue: Int
+    let bucketSize: Int
+    var data = [HistogramBucket]()
 
-    class HistogramBucket {
+    init(values: [Int]) {
+        self.minValue = 1
+        self.maxValue = 100
+        self.bucketSize = 10
+        self.data = getHistogram(for: values)
+    }
+
+    class HistogramBucket: Identifiable {
+        let id = UUID()
         let min: Int
         let max: Int
         var frequency: Int
@@ -60,7 +69,7 @@ struct HistogramChartHelper {
         return histogramBuckets
     }
 
-    func getHistogram(for values: [Int]) -> [HistogramBucket] {
+    private func getHistogram(for values: [Int]) -> [HistogramBucket] {
         let frequencyData = getFrequency(for: values)
         let histogramBuckets = getBuckets()
 
