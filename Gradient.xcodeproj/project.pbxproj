@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841D2A0F27C5AA1D00B2F92B /* HistogramChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */; };
 		8424E184278B5EC5007639D7 /* MonthBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E183278B5EC5007639D7 /* MonthBlockView.swift */; };
 		8424E189278BDF2F007639D7 /* BlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E188278BDF2F007639D7 /* BlockTitle.swift */; };
 		8424E18B278BE4E0007639D7 /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E18A278BE4E0007639D7 /* AddNoteView.swift */; };
@@ -24,10 +25,10 @@
 		84CEF1EC277D5A3B00C2CB6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CEF1EB277D5A3B00C2CB6C /* ContentView.swift */; };
 		84CEF1EE277D5A3E00C2CB6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CEF1ED277D5A3E00C2CB6C /* Assets.xcassets */; };
 		84CEF1F1277D5A3E00C2CB6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CEF1F0277D5A3E00C2CB6C /* Preview Assets.xcassets */; };
-		84F6E40A27B20360000B94DD /* HistogramChartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6E40927B20360000B94DD /* HistogramChartHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramChart.swift; sourceTree = "<group>"; };
 		8424E183278B5EC5007639D7 /* MonthBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthBlockView.swift; sourceTree = "<group>"; };
 		8424E188278BDF2F007639D7 /* BlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTitle.swift; sourceTree = "<group>"; };
 		8424E18A278BE4E0007639D7 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
@@ -46,7 +47,6 @@
 		84CEF1EB277D5A3B00C2CB6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		84CEF1ED277D5A3E00C2CB6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84CEF1F0277D5A3E00C2CB6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		84F6E40927B20360000B94DD /* HistogramChartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramChartHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +86,8 @@
 				843040272795FEFA008B901D /* DataController.swift */,
 				847545DF277E535F00D6A8D8 /* NewEntryView.swift */,
 				8424E193278D173C007639D7 /* GradientGenerator.swift */,
-				84F6E40927B20360000B94DD /* HistogramChartHelper.swift */,
 				847545E1277E759600D6A8D8 /* SentimentDetailView.swift */,
+				841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */,
 				84CEF1E9277D5A3B00C2CB6C /* GradientApp.swift */,
 				84CEF1EB277D5A3B00C2CB6C /* ContentView.swift */,
 				8424E188278BDF2F007639D7 /* BlockTitle.swift */,
@@ -197,7 +197,7 @@
 				8424E18B278BE4E0007639D7 /* AddNoteView.swift in Sources */,
 				8430402D27960019008B901D /* Entry+CoreDataClass.swift in Sources */,
 				8424E184278B5EC5007639D7 /* MonthBlockView.swift in Sources */,
-				84F6E40A27B20360000B94DD /* HistogramChartHelper.swift in Sources */,
+				841D2A0F27C5AA1D00B2F92B /* HistogramChart.swift in Sources */,
 				8430403027960019008B901D /* Note+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

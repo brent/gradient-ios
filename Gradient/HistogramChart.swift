@@ -1,11 +1,52 @@
 //
-//  HistogramChartHelper.swift
+//  HistogramChart.swift
 //  Gradient
 //
-//  Created by Brent Meyer on 2/7/22.
+//  Created by Brent Meyer on 2/22/22.
 //
 
-import Foundation
+import SwiftUI
+
+struct HistogramChart: View {
+    let values: [Int]
+    let entry: Entry
+    let label: String
+
+    var chartHelper: HistogramChartHelper {
+        HistogramChartHelper(values: self.values)
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            VStack {
+                HStack(alignment: .bottom, spacing: 8) {
+                    ForEach(chartHelper.data) { datum in
+                        let width = (geometry.frame(in: .local).width / CGFloat(chartHelper.data.count)) - 8
+                        //let height = (geometry.size.height * CGFloat(datum.rawValues.count) / 100)
+                        //let height = ((CGFloat(datum.rawValues.count)) * (geometry.frame(in: .global).height * 0.05))
+                        let height = (geometry.frame(in: .local).height * 0.025) * CGFloat(datum.rawValues.count)
+
+                        if (entry.wrappedSentiment >= datum.min) && (entry.wrappedSentiment <= datum.max) {
+                            Rectangle()
+                                .fill(.white)
+                                .cornerRadius(4)
+                                .frame(width: width, height: height)
+                        } else {
+                            Rectangle()
+                                .fill(.black.opacity(0.25))
+                                .cornerRadius(4)
+                                .frame(width: width, height: height)
+                        }
+                    }
+                }
+
+                Text(label)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+            }
+        }
+    }
+}
 
 struct HistogramChartHelper {
     let minValue: Int
@@ -16,7 +57,7 @@ struct HistogramChartHelper {
     init(values: [Int]) {
         self.minValue = 1
         self.maxValue = 100
-        self.bucketSize = 10
+        self.bucketSize = 20
         self.data = getHistogram(for: values)
     }
 
@@ -88,5 +129,18 @@ struct HistogramChartHelper {
         }
 
         return histogramBuckets
+    }
+}
+
+struct HistogramChart_Previews: PreviewProvider {
+    static let entry = Entry()
+    static var values: [Int] {
+        (1...50).map { _ in
+            Int.random(in: 1...100)
+        }
+    }
+
+    static var previews: some View {
+        HistogramChart(values: values, entry: entry, label: "chart")
     }
 }
