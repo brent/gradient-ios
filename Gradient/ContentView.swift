@@ -100,47 +100,61 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ScrollView {
-                    VStack(alignment: .center) {
-                        BlockTitle(label: "This week")
-
-                        ForEach(entriesThisWeek) { entry in
-                            NavigationLink {
-                                SentimentDetailView(entry: entry)
-                            } label: {
-                                SentimentBlockContentFull(entry: entry)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
+                if entries.count == 0 {
+                    VStack {
+                        Spacer()
+                        Text("No entries")
+                        Spacer()
                     }
-                    .padding()
+                } else {
+                    ScrollView {
+                        if entriesThisWeek.count > 0 {
+                            VStack(alignment: .center) {
+                                BlockTitle(label: "This week")
 
-                    VStack(alignment: .center) {
-                        BlockTitle(label: "Earlier this month")
-
-                        ForEach(entriesEarlierThisMonth) { entry in
-                            NavigationLink {
-                                SentimentDetailView(entry: entry)
-                            } label: {
-                                SentimentBlockContentCondensed(entry: entry)
+                                ForEach(entriesThisWeek) { entry in
+                                    NavigationLink {
+                                        SentimentDetailView(entry: entry)
+                                    } label: {
+                                        SentimentBlockContentFull(entry: entry)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                    }
-                    .padding([.horizontal, .bottom])
-
-                    Divider()
-                        .padding(.vertical)
-
-                    ForEach(entriesPreviousMonths, id: \.self) { monthEntries in
-                        MonthBlockView(entries: monthEntries)
                             .padding()
+                        }
+
+                        if entriesThisMonth.count > 0 {
+                            VStack(alignment: .center) {
+                                BlockTitle(label: "Earlier this month")
+
+                                ForEach(entriesEarlierThisMonth) { entry in
+                                    NavigationLink {
+                                        SentimentDetailView(entry: entry)
+                                    } label: {
+                                        SentimentBlockContentCondensed(entry: entry)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding([.horizontal, .bottom])
+                        }
+
+                        if entriesPreviousMonths.count > 0 {
+                            Divider()
+                                .padding(.vertical)
+
+                            ForEach(entriesPreviousMonths, id: \.self) { monthEntries in
+                                MonthBlockView(entries: monthEntries)
+                                    .padding()
+                            }
+                        }
                     }
+                    .padding(.bottom, 64)
+                    .navigationTitle("Home")
+                    .navigationBarHidden(true)
                 }
-                .padding(.bottom, 64)
-                .navigationTitle("Home")
-                .navigationBarHidden(true)
 
                 VStack {
                     Spacer()
