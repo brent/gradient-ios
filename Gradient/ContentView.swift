@@ -124,7 +124,7 @@ struct ContentView: View {
                             .padding()
                         }
 
-                        if entriesThisMonth.count > 0 {
+                        if entriesEarlierThisMonth.count > 0 {
                             VStack(alignment: .center) {
                                 BlockTitle(label: "Earlier this month")
 
