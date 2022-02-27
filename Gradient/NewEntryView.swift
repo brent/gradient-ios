@@ -19,7 +19,7 @@ struct NewEntryView: View {
     }
 
     var sentimentColor: Color {
-        gradientColors[Int(sentiment)]
+        gradientColors[Int(sentiment - 1)]
     }
 
     var body: some View {
