@@ -61,10 +61,20 @@ struct SentimentDetailView: View, SentimentBlockContent {
     }
 
     var body: some View {
-        VStack {
-            Spacer()
-
+        ScrollView {
             VStack(alignment: .leading) {
+                Button {
+                 dismiss()
+                } label: {
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(.white)
+                        .font(.system(size: 18, weight: .bold))
+                        .frame(width: 44, height: 44, alignment: .leading)
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
+
                 Text(getFullDate(from: entry.wrappedDate))
                     .foregroundColor(.white)
                     .font(.system(size: 24))
@@ -83,48 +93,28 @@ struct SentimentDetailView: View, SentimentBlockContent {
                     entry: entry,
                     label: "Today vs all time"
                 )
+                .frame(height: 200)
+
+                if noteContent != "" {
+                    VStack(alignment: .leading) {
+                        Text("Note".uppercased())
+                            .font(.system(.subheadline))
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+
+                        Text(noteContent)
+                            .font(.system(size: 20))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top, 16)
+                }
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)
-
-            Spacer()
-            Spacer()
-
-            if noteContent != "" {
-                VStack(alignment: .leading) {
-                    Text("Note".uppercased())
-                        .font(.system(.subheadline))
-                        .fontWeight(.bold)
-                        .foregroundColor(.secondary.opacity(0.66))
-                        .padding(.bottom, 4)
-
-                    Text(noteContent)
-                        .font(.system(size: 20))
-                        .foregroundColor(.primary.opacity(0.75))
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
-                .padding(.vertical, 16)
-                .background(.white)
-            }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
         }
         .background(bgColor)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                 dismiss()
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.white)
-                        .font(.system(size: 18, weight: .bold))
-                        .frame(width: 44, height: 44, alignment: .leading)
-                        .onTapGesture {
-                            dismiss()
-                        }
-                }
-            }
-        }
     }
 }
 

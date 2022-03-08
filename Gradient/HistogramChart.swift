@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct VerticalLine: View {
+    let start: Double
+    let end: Double
+
+    var body: some View {
+        Path { path in
+            path.move(to: CGPoint(x: 0, y: 0))
+            path.addLine(to: CGPoint(x: 0, y: start))
+            path.addLine(to: CGPoint(x: 0, y: end))
+        }
+        .stroke(style: .init(lineWidth: 1, dash: [4]))
+        .fill(.white.opacity(0.5))
+    }
+}
+
 struct HistogramChart: View {
     let values: [Int]
     let entry: Entry
@@ -19,25 +34,36 @@ struct HistogramChart: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                HStack(alignment: .bottom, spacing: 8) {
-                    ForEach(chartHelper.data) { datum in
-                        let width = (geometry.frame(in: .local).width / CGFloat(chartHelper.data.count)) - 8
+                HStack(alignment: .bottom, spacing: 0) {
+                    ForEach(chartHelper.data.indices, id: \.self) { index in
+                        let datum = chartHelper.data[index]
+                        let width = (geometry.frame(in: .local).width / CGFloat(chartHelper.data.count))
                         //let height = (geometry.size.height * CGFloat(datum.rawValues.count) / 100)
                         //let height = ((CGFloat(datum.rawValues.count)) * (geometry.frame(in: .global).height * 0.05))
                         let height = (geometry.frame(in: .local).height * 0.025) * CGFloat(datum.rawValues.count)
 
-                        if (entry.wrappedSentiment >= datum.min) && (entry.wrappedSentiment <= datum.max) {
+                        ZStack {
+                            if index != chartHelper.data.startIndex {
+                                VerticalLine(start: 0, end: geometry.size.height - 24)
+                            }
+
                             Rectangle()
-                                .fill(.white)
-                                .cornerRadius(4)
-                                .frame(width: width, height: height)
-                        } else {
-                            Rectangle()
-                                .fill(.black.opacity(0.25))
-                                .cornerRadius(4)
-                                .frame(width: width, height: height)
+                                .fill().opacity(0)
+                                .frame(width: width, alignment: .bottom)
+                                .overlay(alignment: .bottom) {
+                                    Rectangle()
+                                        .fill((entry.wrappedSentiment >= datum.min) && (entry.wrappedSentiment <= datum.max) ? .white : .black.opacity(0.25))
+                                        .cornerRadius(4)
+                                        .frame(width: width - 12, height: height)
+                                }
                         }
                     }
+                }
+                .frame(width: geometry.size.width)
+                .overlay {
+                    Rectangle()
+                        .stroke(style: .init(lineWidth: 1, dash: [4]))
+                        .fill(.white.opacity(0.5))
                 }
 
                 Text(label)
