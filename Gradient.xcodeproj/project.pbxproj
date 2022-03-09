@@ -18,6 +18,7 @@
 		8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402A27960019008B901D /* Entry+CoreDataProperties.swift */; };
 		8430402F27960019008B901D /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402B27960019008B901D /* Note+CoreDataClass.swift */; };
 		8430403027960019008B901D /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402C27960019008B901D /* Note+CoreDataProperties.swift */; };
+		844389D727D6F600004A474D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844389D627D6F600004A474D /* SettingsView.swift */; };
 		847545DE277D6AAB00D6A8D8 /* SentimentBlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */; };
 		847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545DF277E535F00D6A8D8 /* NewEntryView.swift */; };
 		847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847545E1277E759600D6A8D8 /* SentimentDetailView.swift */; };
@@ -39,6 +40,7 @@
 		8430402A27960019008B901D /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8430402B27960019008B901D /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8430402C27960019008B901D /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		844389D627D6F600004A474D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		847545DD277D6AAB00D6A8D8 /* SentimentBlockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentBlockContent.swift; sourceTree = "<group>"; };
 		847545DF277E535F00D6A8D8 /* NewEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewEntryView.swift; path = Gradient/NewEntryView.swift; sourceTree = SOURCE_ROOT; };
 		847545E1277E759600D6A8D8 /* SentimentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentDetailView.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		84CEF1E8277D5A3B00C2CB6C /* Gradient */ = {
 			isa = PBXGroup;
 			children = (
+				844389D627D6F600004A474D /* SettingsView.swift */,
 				8430402927960019008B901D /* Entry+CoreDataClass.swift */,
 				8430402A27960019008B901D /* Entry+CoreDataProperties.swift */,
 				8430402B27960019008B901D /* Note+CoreDataClass.swift */,
@@ -188,6 +191,7 @@
 				8424E194278D173C007639D7 /* GradientGenerator.swift in Sources */,
 				8424E192278D0DDD007639D7 /* Gradient.xcdatamodeld in Sources */,
 				847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */,
+				844389D727D6F600004A474D /* SettingsView.swift in Sources */,
 				847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */,
 				8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */,
 				843040282795FEFB008B901D /* DataController.swift in Sources */,

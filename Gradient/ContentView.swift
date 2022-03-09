@@ -12,6 +12,7 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors:[SortDescriptor(\.date, order: .reverse)]) var entries: FetchedResults<Entry>
 
     @State private var showingAddSentimentSheet = false
+    @State private var showingSettings = false
 
     var entriesByMonth: [[Entry]] {
         guard !entries.isEmpty else { return [] }
@@ -108,6 +109,18 @@ struct ContentView: View {
                     }
                 } else {
                     ScrollView {
+                        HStack {
+                            Spacer()
+                            Button {
+                                showingSettings = true
+                            } label: {
+                                Image(systemName: "slider.horizontal.3")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.primary)
+                            }
+                        }
+                        .padding()
+
                         if entriesThisWeek.count > 0 {
                             VStack(alignment: .center) {
                                 BlockTitle(label: "This week")
@@ -181,6 +194,9 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showingAddSentimentSheet) {
             NewEntryView()
+        }
+        .sheet(isPresented: $showingSettings) {
+            SettingsView()
         }
     }
 }
