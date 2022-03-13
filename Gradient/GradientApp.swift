@@ -13,7 +13,7 @@ struct GradientApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  Gradient
 //
 //  Created by Brent Meyer on 12/29/21.
@@ -7,96 +7,29 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors:[SortDescriptor(\.date, order: .reverse)]) var entries: FetchedResults<Entry>
-
-    @State private var showingAddSentimentSheet = false
-    @State private var showingSettings = false
-    @State private var showingWarning = false
+    @StateObject private var viewModel = ViewModel()
 
     var entriesByMonth: [[Entry]] {
-        guard !entries.isEmpty else { return [] }
-
-        var allEntries = [[Entry]]()
-        var monthEntries = [Entry]()
-        var currentMonth = Calendar.current.dateComponents([.month], from: entries[0].wrappedDate).month
-
-        entries.forEach { entry in
-            let currentEntryMonth = Calendar.current.dateComponents([.month], from: entry.wrappedDate).month
-
-            if currentEntryMonth == currentMonth {
-                monthEntries.append(entry)
-            } else {
-                allEntries.append(monthEntries)
-                monthEntries = []
-                currentMonth = currentEntryMonth
-                monthEntries.append(entry)
-            }
-        }
-
-        if monthEntries.count > 0 { allEntries.append(monthEntries) }
-        return allEntries
+        viewModel.splitEntriesByMonth(entries)
     }
 
     var entriesPreviousMonths: [[Entry]] {
-        guard !entriesByMonth.isEmpty else { return [] }
-
-        let mostRecentEntry = entriesByMonth[0][0]
-        let mostRecentEntryMonth = Calendar.current.dateComponents([.month], from: mostRecentEntry.wrappedDate).month
-        let currentMonth = Calendar.current.dateComponents([.month], from: Date.now).month
-
-        if mostRecentEntryMonth == currentMonth {
-            return Array(entriesByMonth[1..<entriesByMonth.count])
-        } else {
-            return entriesByMonth
-        }
+        viewModel.getPreviousMonthsEntries(from: entriesByMonth)
     }
 
     var entriesThisMonth: [Entry] {
-        guard !entriesByMonth.isEmpty else { return [] }
-
-        let mostRecentMonthEntries = entriesByMonth[0]
-        let mostRecentEntry = mostRecentMonthEntries[0]
-        let mostRecentEntryMonth = Calendar.current.dateComponents([.month], from: mostRecentEntry.wrappedDate).month
-        let currentMonth = Calendar.current.dateComponents([.month], from: Date.now).month
-
-        if mostRecentEntryMonth == currentMonth {
-            return mostRecentMonthEntries
-        } else {
-            return []
-        }
+        viewModel.getThisMonthsEntries(from: entriesByMonth)
     }
 
     var entriesEarlierThisMonth: [Entry] {
-        var entriesBeforeThisWeek = [Entry]()
-
-        let thisWeek = Calendar.current.dateComponents([.weekOfYear], from: Date.now).weekOfYear
-
-        entriesThisMonth.forEach { entry in
-            let entryWeekNum = Calendar.current.dateComponents([.weekOfYear], from: entry.wrappedDate).weekOfYear
-
-            if entryWeekNum != thisWeek {
-                entriesBeforeThisWeek.append(entry)
-            }
-        }
-
-        return entriesBeforeThisWeek
+        viewModel.getEntriesEarlierInMonth(from: entriesThisMonth)
     }
 
     var entriesThisWeek: [Entry] {
-        let thisWeek = Calendar.current.dateComponents([.weekOfYear], from: Date.now).weekOfYear
-        var thisWeekEntries = [Entry]()
-
-        entriesThisMonth.forEach { entry in
-            let entryWeek = Calendar.current.dateComponents([.weekOfYear], from: entry.wrappedDate).weekOfYear
-
-            if entryWeek == thisWeek {
-                thisWeekEntries.append(entry)
-            }
-        }
-
-        return thisWeekEntries
+        viewModel.getThisWeeksEntries(from: entriesThisMonth)
     }
 
     var body: some View {
@@ -113,7 +46,7 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Button {
-                                showingSettings = true
+                                viewModel.showSettings()
                             } label: {
                                 Image(systemName: "slider.horizontal.3")
                                     .font(.system(size: 24))
@@ -171,17 +104,22 @@ struct ContentView: View {
                     .navigationBarHidden(true)
                 }
 
-                if !Calendar.current.isDateInToday(entries[0].wrappedDate) {
+                if entries.isEmpty || !Calendar.current.isDateInToday(entries[0].wrappedDate) {
                     VStack {
                         Spacer()
 
                         Button {
-                            let warningTimeCutoff = Calendar.current.date(from: DateComponents(hour: 20)) ?? Date.now
+                            let warningTimeCutoff = Calendar.current.date(from: DateComponents(hour: 20))
+                            let timeNowDateComponents = Calendar.current.dateComponents([.hour], from: Date.now)
+                            let timeNow = Calendar.current.date(from: timeNowDateComponents)
 
-                            if Date.now < warningTimeCutoff {
-                                showingWarning = true
+                            guard let timeNow = timeNow else { return }
+                            guard let warningTimeCutoff = warningTimeCutoff else { return }
+
+                            if timeNow < warningTimeCutoff {
+                                viewModel.showTimeWarning()
                             } else {
-                                showingAddSentimentSheet = true
+                                viewModel.showAddSentimentSheet()
                             }
                         } label: {
                             Text("Log day")
@@ -202,15 +140,15 @@ struct ContentView: View {
                 }
             }
         }
-        .sheet(isPresented: $showingAddSentimentSheet) {
+        .sheet(isPresented: $viewModel.showingAddSentimentSheet) {
             NewEntryView()
         }
-        .sheet(isPresented: $showingSettings) {
+        .sheet(isPresented: $viewModel.showingSettings) {
             SettingsView()
         }
-        .alert("Are you sure?", isPresented: $showingWarning) {
+        .alert("Are you sure?", isPresented: $viewModel.showingWarning) {
             Button {
-                showingAddSentimentSheet = true
+                viewModel.showAddSentimentSheet()
             } label: {
                 Text("Yes")
             }
@@ -227,6 +165,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        HomeView()
     }
 }
