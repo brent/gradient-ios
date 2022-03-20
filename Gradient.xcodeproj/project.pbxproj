@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		841A947427DE954900330A24 /* HomeView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A947327DE954900330A24 /* HomeView-ViewModel.swift */; };
+		841A947627E02C3200330A24 /* LinePlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A947527E02C3200330A24 /* LinePlot.swift */; };
 		841D2A0F27C5AA1D00B2F92B /* HistogramChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */; };
 		8424E184278B5EC5007639D7 /* MonthBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E183278B5EC5007639D7 /* MonthBlockView.swift */; };
 		8424E189278BDF2F007639D7 /* BlockTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E188278BDF2F007639D7 /* BlockTitle.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		841A947327DE954900330A24 /* HomeView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView-ViewModel.swift"; sourceTree = "<group>"; };
+		841A947527E02C3200330A24 /* LinePlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePlot.swift; sourceTree = "<group>"; };
 		841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramChart.swift; sourceTree = "<group>"; };
 		8424E183278B5EC5007639D7 /* MonthBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthBlockView.swift; sourceTree = "<group>"; };
 		8424E188278BDF2F007639D7 /* BlockTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTitle.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		84CEF1E8277D5A3B00C2CB6C /* Gradient */ = {
 			isa = PBXGroup;
 			children = (
+				841A947527E02C3200330A24 /* LinePlot.swift */,
 				844389D627D6F600004A474D /* SettingsView.swift */,
 				8430402927960019008B901D /* Entry+CoreDataClass.swift */,
 				8430402A27960019008B901D /* Entry+CoreDataProperties.swift */,
@@ -196,6 +199,7 @@
 				8424E192278D0DDD007639D7 /* Gradient.xcdatamodeld in Sources */,
 				847545E0277E535F00D6A8D8 /* NewEntryView.swift in Sources */,
 				844389D727D6F600004A474D /* SettingsView.swift in Sources */,
+				841A947627E02C3200330A24 /* LinePlot.swift in Sources */,
 				847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */,
 				8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */,
 				843040282795FEFB008B901D /* DataController.swift in Sources */,

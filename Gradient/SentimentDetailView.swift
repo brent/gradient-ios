@@ -88,12 +88,12 @@ struct SentimentDetailView: View, SentimentBlockContent {
                     .foregroundColor(.white)
                     .font(.system(size: 24))
 
-                HistogramChart(
+                LinePlot(
                     values: allEntries.map { $0.wrappedSentiment },
-                    entry: entry,
-                    label: "Today vs all time"
+                    entry: entry
                 )
-                .frame(height: 200)
+                .frame(height: 100)
+                .padding(.vertical)
 
                 if noteContent != "" {
                     VStack(alignment: .leading) {
