@@ -12,6 +12,11 @@ struct HomeView: View {
     @FetchRequest(sortDescriptors:[SortDescriptor(\.date, order: .reverse)]) var entries: FetchedResults<Entry>
     @StateObject private var viewModel = ViewModel()
 
+    private var showingCtaBinding: Binding<Bool> { Binding (
+        get: { viewModel.getCtaVisibility(entries: self.entries) },
+        set: { _ in }
+    )}
+
     var entriesByMonth: [[Entry]] {
         viewModel.splitEntriesByMonth(entries)
     }
@@ -104,7 +109,7 @@ struct HomeView: View {
                     .navigationBarHidden(true)
                 }
 
-                if entries.isEmpty || !Calendar.current.isDateInToday(entries[0].wrappedDate) {
+                if showingCtaBinding.wrappedValue {
                     VStack {
                         Spacer()
 

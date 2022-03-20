@@ -118,5 +118,9 @@ extension HomeView {
 
             return thisWeekEntries
         }
+
+        func getCtaVisibility(entries: EntriesResults) -> Bool {
+            entries.isEmpty || !Calendar.current.isDateInToday(entries[0].wrappedDate)
+        }
     }
 }
