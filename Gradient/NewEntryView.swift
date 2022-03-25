@@ -131,7 +131,7 @@ struct NewEntryView: View {
         for index in 1...100 {
             if Bool.random() {
                 let entry = Entry(context: moc)
-                let randomNum = Int.random(in: 1...100)
+                let randomNum = Int.random(in: 1...100) - 1
                 let date = Calendar.current.date(byAdding: .day, value: -index, to: Date.now)
 
                 entry.id = UUID()
@@ -157,7 +157,7 @@ struct NewEntryView: View {
                 additionalEntries.append(entry)
             }
         }
-         */
+        */
 
         if moc.hasChanges {
             do {

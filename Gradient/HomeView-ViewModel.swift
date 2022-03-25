@@ -91,10 +91,14 @@ extension HomeView {
 
             let thisWeek = Calendar.current.dateComponents([.weekOfYear], from: Date.now).weekOfYear
 
+            guard let thisWeek = thisWeek else { return [] }
+
             entries.forEach { entry in
                 let entryWeekNum = Calendar.current.dateComponents([.weekOfYear], from: entry.wrappedDate).weekOfYear
 
-                if entryWeekNum != thisWeek {
+                guard let entryWeekNum = entryWeekNum else { return }
+
+                if entryWeekNum != thisWeek || entryWeekNum != thisWeek - 1 {
                     entriesBeforeThisWeek.append(entry)
                 }
             }
@@ -117,6 +121,27 @@ extension HomeView {
             }
 
             return thisWeekEntries
+        }
+
+        func getLastWeeksEntries(from entries: EntriesArray) -> EntriesArray {
+            guard !entries.isEmpty else { return [] }
+
+            let thisWeek = Calendar.current.dateComponents([.weekOfYear], from: Date.now).weekOfYear
+            var lastWeekEntries = [Entry]()
+
+            guard let thisWeek = thisWeek else { return [] }
+
+            entries.forEach { entry in
+                let entryWeek = Calendar.current.dateComponents([.weekOfYear], from: entry.wrappedDate).weekOfYear
+
+                guard let entryWeek = entryWeek else { return }
+
+                if entryWeek == thisWeek - 1 {
+                    lastWeekEntries.append(entry)
+                }
+            }
+
+            return lastWeekEntries
         }
 
         func getCtaVisibility(entries: EntriesResults) -> Bool {

@@ -37,6 +37,10 @@ struct HomeView: View {
         viewModel.getThisWeeksEntries(from: entriesThisMonth)
     }
 
+    var entriesLastWeek: [Entry] {
+        viewModel.getLastWeeksEntries(from: entriesThisMonth)
+    }
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -65,6 +69,22 @@ struct HomeView: View {
                                 BlockTitle(label: "This week")
 
                                 ForEach(entriesThisWeek) { entry in
+                                    NavigationLink {
+                                        SentimentDetailView(entry: entry)
+                                    } label: {
+                                        SentimentBlockContentFull(entry: entry)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding()
+                        }
+
+                        if entriesLastWeek.count > 0 {
+                            VStack(alignment: .center) {
+                                BlockTitle(label: "Last week")
+
+                                ForEach(entriesLastWeek) { entry in
                                     NavigationLink {
                                         SentimentDetailView(entry: entry)
                                     } label: {
