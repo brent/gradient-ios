@@ -98,7 +98,7 @@ extension HomeView {
 
                 guard let entryWeekNum = entryWeekNum else { return }
 
-                if entryWeekNum != thisWeek || entryWeekNum != thisWeek - 1 {
+                if entryWeekNum != thisWeek && entryWeekNum != thisWeek - 1 {
                     entriesBeforeThisWeek.append(entry)
                 }
             }
