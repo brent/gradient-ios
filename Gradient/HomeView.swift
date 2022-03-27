@@ -9,13 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.scenePhase) var scenePhase
     @FetchRequest(sortDescriptors:[SortDescriptor(\.date, order: .reverse)]) var entries: FetchedResults<Entry>
     @StateObject private var viewModel = ViewModel()
-
-    private var showingCtaBinding: Binding<Bool> { Binding (
-        get: { viewModel.getCtaVisibility(entries: self.entries) },
-        set: { _ in }
-    )}
 
     var entriesByMonth: [[Entry]] {
         viewModel.splitEntriesByMonth(entries)
@@ -129,7 +125,7 @@ struct HomeView: View {
                     .navigationBarHidden(true)
                 }
 
-                if showingCtaBinding.wrappedValue {
+                if viewModel.showingCtaButton {
                     VStack {
                         Spacer()
 
@@ -184,6 +180,9 @@ struct HomeView: View {
             }
         } message: {
             Text("We recommend logging your day when it's just about done and it looks like you might have some day left.")
+        }
+        .onChange(of: scenePhase) { _ in
+            viewModel.setCtaVisibility(entries: entries)
         }
     }
 }

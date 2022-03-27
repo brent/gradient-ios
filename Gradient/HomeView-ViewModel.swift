@@ -14,6 +14,7 @@ extension HomeView {
         @Published var showingSettings = false
         @Published var showingWarning = false
         @Published var showingLogButton = true
+        @Published var showingCtaButton = true
 
         typealias EntriesResults = FetchedResults<Entry>
         typealias EntriesByMonth = [[Entry]]
@@ -29,6 +30,14 @@ extension HomeView {
 
         func showSettings() {
             showingSettings = true
+        }
+
+        func showCtaButton() {
+            showingCtaButton = true
+        }
+
+        func hideCtaButton() {
+            showingCtaButton = false
         }
 
         func splitEntriesByMonth(_ entries: EntriesResults) -> EntriesByMonth {
@@ -146,6 +155,14 @@ extension HomeView {
 
         func getCtaVisibility(entries: EntriesResults) -> Bool {
             entries.isEmpty || !Calendar.current.isDateInToday(entries[0].wrappedDate)
+        }
+
+        func setCtaVisibility(entries: EntriesResults) {
+            if entries.isEmpty || !Calendar.current.isDateInToday(entries[0].wrappedDate) {
+                showCtaButton()
+            } else {
+                hideCtaButton()
+            }
         }
     }
 }
