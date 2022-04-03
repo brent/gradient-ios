@@ -75,9 +75,9 @@ struct GradientGenerator {
 
     init() {
         self.startColor = Color(
-            hue: 0/360,
-            saturation: 75/100,
-            brightness: 75/100
+            hue: 10/360,
+            saturation: 85/100,
+            brightness: 85/100
         )
 
         self.endColor = Color(
@@ -104,26 +104,39 @@ struct GradientGenerator {
             }
         } else if colorSpace == .hsb {
             let startColorComponents = HSBColorComponents(from: self.startColor)
+            let quarterColorComponents = HSBColorComponents(from: Color(
+                hue: 40/360, saturation: 85/100, brightness: 75/100
+            ))
             let middleColorComponents = HSBColorComponents(from: Color(
                 hue: 55/360, saturation: 75/100, brightness: 75/100
             ))
             let endColorComponents = HSBColorComponents(from: self.endColor)
 
-            let firstHalfHueSteps = getValueSteps(startValue: startColorComponents.hue, endValue: middleColorComponents.hue, steps: 50 - 2)
-            let firstHalfSaturationSteps = getValueSteps(startValue: startColorComponents.saturation, endValue: middleColorComponents.saturation, steps: 50 - 2)
-            let firstHalfBrightnessSteps = getValueSteps(startValue: startColorComponents.brightness, endValue: middleColorComponents.brightness, steps: 50 - 2)
+            let firstQuarterHueSteps = getValueSteps(startValue: startColorComponents.hue, endValue: quarterColorComponents.hue, steps: 25 - 1)
+            let firstQuarterSaturationSteps = getValueSteps(startValue: startColorComponents.saturation, endValue: quarterColorComponents.saturation, steps: 25 - 1)
+            let firstQuarterBrightnessSteps = getValueSteps(startValue: startColorComponents.brightness, endValue: quarterColorComponents.brightness, steps: 25 - 1)
+
+            let secondQuarterHueSteps = getValueSteps(startValue: quarterColorComponents.hue, endValue: middleColorComponents.hue, steps: 25 - 1)
+            let secondQuarterSaturationSteps = getValueSteps(startValue: quarterColorComponents.saturation, endValue: middleColorComponents.saturation, steps: 25 - 1)
+            let secondQuarterBrightnessSteps = getValueSteps(startValue: quarterColorComponents.brightness, endValue: middleColorComponents.brightness, steps: 25 - 1)
 
             let secondHalfHueSteps = getValueSteps(startValue: middleColorComponents.hue, endValue: endColorComponents.hue, steps: 50 - 2)
             let secondHalfSaturationSteps = getValueSteps(startValue: middleColorComponents.saturation, endValue: endColorComponents.saturation, steps: 50 - 2)
             let secondHalfBrightnessSteps = getValueSteps(startValue: middleColorComponents.brightness, endValue: endColorComponents.brightness, steps: 50 - 2)
 
-            for i in 0...((steps - 1) / 2) {
-                gradientColors.append(Color(hue: firstHalfHueSteps[i], saturation: firstHalfSaturationSteps[i], brightness: firstHalfBrightnessSteps[i]))
+            gradientColors.append(startColor)
+            for i in 0...22 {
+                gradientColors.append(Color(hue: firstQuarterHueSteps[i], saturation: firstQuarterSaturationSteps[i], brightness: firstQuarterBrightnessSteps[i]))
             }
-
-            for i in 0...((steps - 1) / 2) {
+            gradientColors.append(Color(hue: quarterColorComponents.hue, saturation: quarterColorComponents.saturation, brightness: quarterColorComponents.brightness))
+            for i in 0...22 {
+                gradientColors.append(Color(hue: secondQuarterHueSteps[i], saturation: secondQuarterSaturationSteps[i], brightness: secondQuarterBrightnessSteps[i]))
+            }
+            gradientColors.append(Color(hue: middleColorComponents.hue, saturation: middleColorComponents.saturation, brightness: middleColorComponents.brightness))
+            for i in 0...49 {
                 gradientColors.append(Color(hue: secondHalfHueSteps[i], saturation: secondHalfSaturationSteps[i], brightness: secondHalfBrightnessSteps[i]))
             }
+            gradientColors.append(endColor)
 
             /*
             let hueColorSteps = getValueSteps(startValue: startColorComponents.hue, endValue: endColorComponents.hue, steps: steps)

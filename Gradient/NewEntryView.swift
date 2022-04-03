@@ -46,13 +46,6 @@ struct NewEntryView: View {
                 }
 
                 Spacer()
-
-                HStack {
-                    Rectangle()
-                        .foregroundColor(gradientColors[0])
-                    Rectangle()
-                        .foregroundColor(gradientColors[99])
-                }
             }
             .frame(maxWidth: .infinity)
             .background(sentimentColor)
