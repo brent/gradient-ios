@@ -113,7 +113,6 @@ struct NewEntryView: View {
 
         entry.id = UUID()
         entry.sentiment = Int64(sentiment.rounded())
-        entry.color = getHexValue(from: sentimentColor)
         entry.date = todaysDate
         entry.createdAt = Date.now
         entry.updatedAt = Date.now
@@ -143,7 +142,6 @@ struct NewEntryView: View {
 
                 entry.id = UUID()
                 entry.sentiment = Int64(randomNum)
-                entry.color = getHexValue(from: gradientColors[randomNum])
                 entry.date = date
                 entry.createdAt = date
                 entry.updatedAt = date

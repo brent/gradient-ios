@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840EBD7C27FA3BCB008AB8DE /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840EBD7B27FA3BCB008AB8DE /* Entry+CoreDataProperties.swift */; };
 		841A947427DE954900330A24 /* HomeView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A947327DE954900330A24 /* HomeView-ViewModel.swift */; };
 		841A947627E02C3200330A24 /* LinePlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A947527E02C3200330A24 /* LinePlot.swift */; };
 		841D2A0F27C5AA1D00B2F92B /* HistogramChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */; };
@@ -17,7 +18,6 @@
 		8424E194278D173C007639D7 /* GradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424E193278D173C007639D7 /* GradientGenerator.swift */; };
 		843040282795FEFB008B901D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843040272795FEFA008B901D /* DataController.swift */; };
 		8430402D27960019008B901D /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402927960019008B901D /* Entry+CoreDataClass.swift */; };
-		8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402A27960019008B901D /* Entry+CoreDataProperties.swift */; };
 		8430402F27960019008B901D /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402B27960019008B901D /* Note+CoreDataClass.swift */; };
 		8430403027960019008B901D /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8430402C27960019008B901D /* Note+CoreDataProperties.swift */; };
 		844389D727D6F600004A474D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844389D627D6F600004A474D /* SettingsView.swift */; };
@@ -31,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840EBD7B27FA3BCB008AB8DE /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		841A947327DE954900330A24 /* HomeView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView-ViewModel.swift"; sourceTree = "<group>"; };
 		841A947527E02C3200330A24 /* LinePlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinePlot.swift; sourceTree = "<group>"; };
 		841D2A0E27C5AA1D00B2F92B /* HistogramChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramChart.swift; sourceTree = "<group>"; };
@@ -41,7 +42,6 @@
 		8424E193278D173C007639D7 /* GradientGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientGenerator.swift; sourceTree = "<group>"; };
 		843040272795FEFA008B901D /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		8430402927960019008B901D /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8430402A27960019008B901D /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8430402B27960019008B901D /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8430402C27960019008B901D /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		844389D627D6F600004A474D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				841A947527E02C3200330A24 /* LinePlot.swift */,
 				844389D627D6F600004A474D /* SettingsView.swift */,
 				8430402927960019008B901D /* Entry+CoreDataClass.swift */,
-				8430402A27960019008B901D /* Entry+CoreDataProperties.swift */,
+				840EBD7B27FA3BCB008AB8DE /* Entry+CoreDataProperties.swift */,
 				8430402B27960019008B901D /* Note+CoreDataClass.swift */,
 				8430402C27960019008B901D /* Note+CoreDataProperties.swift */,
 				843040272795FEFA008B901D /* DataController.swift */,
@@ -201,11 +201,11 @@
 				844389D727D6F600004A474D /* SettingsView.swift in Sources */,
 				841A947627E02C3200330A24 /* LinePlot.swift in Sources */,
 				847545E2277E759600D6A8D8 /* SentimentDetailView.swift in Sources */,
-				8430402E27960019008B901D /* Entry+CoreDataProperties.swift in Sources */,
 				843040282795FEFB008B901D /* DataController.swift in Sources */,
 				84CEF1EA277D5A3B00C2CB6C /* GradientApp.swift in Sources */,
 				8424E189278BDF2F007639D7 /* BlockTitle.swift in Sources */,
 				847545DE277D6AAB00D6A8D8 /* SentimentBlockContent.swift in Sources */,
+				840EBD7C27FA3BCB008AB8DE /* Entry+CoreDataProperties.swift in Sources */,
 				8424E18B278BE4E0007639D7 /* AddNoteView.swift in Sources */,
 				8430402D27960019008B901D /* Entry+CoreDataClass.swift in Sources */,
 				8424E184278B5EC5007639D7 /* MonthBlockView.swift in Sources */,

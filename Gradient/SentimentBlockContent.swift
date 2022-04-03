@@ -14,7 +14,10 @@ protocol SentimentBlockContent {
 
 extension SentimentBlockContent {
     var bgColor: Color {
-        if let uiColor = UIColor(hex: "#\(entry.wrappedColor)FF") {
+        let gradient = GradientGenerator().generate(steps: 100)
+        let color = gradient[entry.wrappedSentiment - 1]
+
+        if let uiColor = UIColor(hex: color.description) {
             return Color(uiColor: uiColor)
         }
 

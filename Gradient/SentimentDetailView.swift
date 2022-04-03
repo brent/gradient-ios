@@ -14,7 +14,10 @@ struct SentimentDetailView: View, SentimentBlockContent {
     let entry: Entry
 
     var bgColor: Color {
-        if let uiColor = UIColor(hex: "#\(entry.wrappedColor)FF") {
+        let gradient = GradientGenerator().generate(steps: 100)
+        let color = gradient[entry.wrappedSentiment - 1]
+
+        if let uiColor = UIColor(hex: color.description) {
             return Color(uiColor: uiColor)
         }
 
@@ -83,10 +86,6 @@ struct SentimentDetailView: View, SentimentBlockContent {
                     .font(.system(size: 48))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-
-                Text("#\(entry.wrappedColor)")
-                    .foregroundColor(.white)
-                    .font(.system(size: 24))
 
                 LinePlot(
                     values: allEntries.map { $0.wrappedSentiment },
